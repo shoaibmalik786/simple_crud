@@ -1,0 +1,19 @@
+<%= form_for [@project, @issue] do |f| %>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :assign_to %>
+    <%= f.text_field :assign_to %>
+  </div>
+  <div class="field">
+    <%= f.label :status %>
+    <%= f.select :status, options_for_select(Issue::STATUS.map{|k,v| [k.to_s.humanize, v]}, Issue::STATUS[@issue.status.to_sym]), {} %>
+  </div>
+  <%= f.submit 'Save' if @issue.new_record?%>
+<% end %>

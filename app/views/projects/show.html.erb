@@ -1,0 +1,36 @@
+<h4 class="project_heading"><%=@project.name%></h4>
+
+<div class="btn_row">
+  <%=link_to 'Create a new issue', new_project_issue_path(@project), class: 'create_btn' %>
+</div>
+
+<div class="box_wrapper">
+
+  <% if @project.issues.size > 0 %>
+    <table>
+      <tr>
+        <th>No</th>
+        <th>Title</th>
+        <th>Date created</th>
+        <th>Assigned to</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      <% @project.issues.each do |issue| %>
+        <tr>
+          <td><%=issue.id%></td>
+          <td><%=issue.title %></td>
+          <td><%=issue.created_at.strftime("%Y-%m-%d")%></td>
+          <td><%=issue.assign_to%></td>
+          <td><%=issue.status.humanize%></td>
+          <td>
+            <%=link_to 'Edit', edit_project_issue_path(@project, issue) %>
+            <%=link_to 'Delete', project_issue_path(@project, issue), data: { "turbo-method": :delete } %>
+          </td>
+        </tr>
+      <% end %>  
+    </table>
+  <% else %>
+    No issue added for this project
+  <% end %>
+</div>

@@ -1,0 +1,31 @@
+
+<h4 class="project_heading">Projects</h4>
+<div class="btn_row">
+  <%=link_to 'Create new project', new_project_path, class: 'create_btn' %>
+</div>
+
+<div class="box_wrapper">
+  <%if @projects.size > 0 %>
+    <table>
+      <thead>
+        <th>Project Name</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+        <% @projects.each do |project| %>
+          <tr>
+            <td>
+              <%=link_to project.name, project_path(project), class: 'project_name'%>
+            </td>
+            <td>
+              <%=link_to 'Edit', edit_project_path(project) %>
+              <%=link_to 'Delete', project_path(project), data: { "turbo-method": :delete } %>
+            </td>
+          </tr>
+        <% end %> 
+      </tbody>
+    </table>
+  <% else %>
+    No project added
+  <% end %>
+</div>
