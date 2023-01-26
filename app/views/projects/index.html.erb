@@ -4,9 +4,9 @@
   <%=link_to 'Create new project', new_project_path, class: 'create_btn' %>
 </div>
 
-<div class="box_wrapper">
+<div class="box_wrapper issue_project_wrapper">
   <%if @projects.size > 0 %>
-    <table>
+    <table class="projects_table">
       <thead>
         <th>Project Name</th>
         <th>Action</th>
@@ -18,8 +18,17 @@
               <%=link_to project.name, project_path(project), class: 'project_name'%>
             </td>
             <td>
-              <%=link_to 'Edit', edit_project_path(project) %>
-              <%=link_to 'Delete', project_path(project), data: { "turbo-method": :delete } %>
+              <div class="drop_box">
+                <%= link_to 'javascript:;', class: 'drop_btn' do %>
+                  <%= image_tag 'dot.png', alt: 'dot', class: 'icon_dot' %>
+                <% end %>
+                <div class="dropdown">
+                  <ul class="dropmenu">
+                    <li><%=link_to 'Edit', edit_project_path(project) %></li>
+                    <li><%=link_to 'Delete', project_path(project), data: { "turbo-method": :delete } %></li>
+                  </ul>
+                </div>
+              </div>
             </td>
           </tr>
         <% end %> 
@@ -29,3 +38,10 @@
     No project added
   <% end %>
 </div>
+
+<script type="text/javascript">
+  $('.icon_dot').click(function() {
+    // $('.dropdown').hide();
+    $(this).closest('tr').find('.dropdown').toggle();
+  });
+</script>

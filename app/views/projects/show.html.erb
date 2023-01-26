@@ -4,33 +4,51 @@
   <%=link_to 'Create a new issue', new_project_issue_path(@project), class: 'create_btn' %>
 </div>
 
-<div class="box_wrapper">
+<div class="box_wrapper issue_project_wrapper">
 
   <% if @project.issues.size > 0 %>
-    <table>
-      <tr>
+    <table class="issue_table">
+      <thead>
         <th>No</th>
         <th>Title</th>
         <th>Date created</th>
         <th>Assigned to</th>
         <th>Status</th>
         <th>Action</th>
-      </tr>
-      <% @project.issues.each do |issue| %>
-        <tr>
-          <td><%=issue.id%></td>
-          <td><%=issue.title %></td>
-          <td><%=issue.created_at.strftime("%Y-%m-%d")%></td>
-          <td><%=issue.assign_to%></td>
-          <td><%=issue.status.humanize%></td>
-          <td>
-            <%=link_to 'Edit', edit_project_issue_path(@project, issue) %>
-            <%=link_to 'Delete', project_issue_path(@project, issue), data: { "turbo-method": :delete } %>
-          </td>
-        </tr>
-      <% end %>  
+      </thead>
+      <tbody>
+        <% @project.issues.each do |issue| %>
+          <tr>
+            <td><%=issue.id%></td>
+            <td><%=issue.title %></td>
+            <td><%=issue.created_at.strftime("%Y-%m-%d")%></td>
+            <td><%=issue.assign_to%></td>
+            <td><%=issue.status.humanize%></td>
+            <td>
+              <div class="drop_box">
+                  <%= link_to 'javascript:;', class: 'drop_btn' do %>
+                    <%= image_tag 'dot.png', alt: 'dot', class: 'icon_dot' %>
+                  <% end %>
+                  <div class="dropdown">
+                    <ul class="dropmenu">
+                      <li><%=link_to 'Edit', edit_project_issue_path(@project, issue) %></li>
+                      <li><%=link_to 'Delete', project_issue_path(@project, issue), data: { "turbo-method": :delete } %></li>
+                    </ul>
+                  </div>
+                </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
     </table>
   <% else %>
     No issue added for this project
   <% end %>
 </div>
+
+<script type="text/javascript">
+  $('.icon_dot').click(function() {
+    // $('.dropdown').hide();
+    $(this).closest('tr').find('.dropdown').toggle();
+  });
+</script>

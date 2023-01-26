@@ -26,6 +26,12 @@
         </div>
       <% end %>
       <%= yield %>
+
+      <script type="text/javascript">
+        setTimeout(function() {
+            $('.alert').hide();
+        }, 2500);
+      </script>
     </div>
   </body>
 </html>
