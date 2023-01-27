@@ -2,7 +2,7 @@
 
 <div class="btn_row">
   <%=link_to 'Cancel', project_path(@project), class: 'create_btn cancel_btn' %>
-  <%=link_to 'Save', 'javascript:void(0);', class: 'create_issue create_btn', onclick: "$('.edit_issue').submit();" %>
+  <%=link_to 'Save', 'javascript:void(0);', class: 'create_issue create_btn', onclick: "$('.issue_form').submit();" %>
   <%=link_to 'Delete issue', project_issue_path(@project, @issue), data: { "turbo-method": :delete }, class: 'create_btn' %>
 </div>
 
